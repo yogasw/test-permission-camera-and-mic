@@ -743,6 +743,163 @@
                 padding: 15px;
             }
         }
+        /* Browser Info */
+        .browser-info {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .browser-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: 15px;
+        }
+
+        .browser-info-header h3 {
+            margin: 0;
+            color: #2d3748;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .browser-info-toggle {
+            background: transparent;
+            border: none;
+            color: #4a5568;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .browser-info.collapsed .browser-info-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .browser-info-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .browser-info.collapsed .browser-info-content {
+            display: none;
+        }
+
+        .info-item {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        .info-value.monospace {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background: #f7fafc;
+            padding: 5px 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .support-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .support-badge.yes {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .support-badge.no {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        /* Footer Tools */
+        .footer-tools {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #4a5568;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .footer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .footer-link.browser:hover {
+            background: #667eea;
+        }
+
+        .footer-link.github:hover {
+            background: #24292e;
+        }
+
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .browser-info-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-tools {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-link {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -841,6 +998,63 @@
 
         <div id="videoWrapper" class="video-wrapper empty">
             <video id="video" autoplay muted playsinline style="display:none"></video>
+        </div>
+
+        <!-- Browser Info -->
+        <div id="browserInfo" class="browser-info collapsed">
+            <div class="browser-info-header" id="browserInfoHeader">
+                <h3>
+                    <span>🌐</span>
+                    Browser Information
+                </h3>
+                <button class="browser-info-toggle" id="browserInfoToggle">▼</button>
+            </div>
+            <div class="browser-info-content">
+                <div class="info-item">
+                    <div class="info-label">Browser</div>
+                    <div class="info-value" id="browserName">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Version</div>
+                    <div class="info-value" id="browserVersion">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Operating System</div>
+                    <div class="info-value" id="browserOS">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Device Type</div>
+                    <div class="info-value" id="deviceType">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Screen Resolution</div>
+                    <div class="info-value" id="screenResolution">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">WebRTC Support</div>
+                    <div class="info-value" id="webrtcSupport">Loading...</div>
+                </div>
+                <div class="info-item" style="grid-column: 1 / -1;">
+                    <div class="info-label">User Agent</div>
+                    <div class="info-value monospace" id="userAgent">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer-tools">
+            <a href="" id="openInBrowser" class="footer-link browser" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                Open in Browser
+            </a>
+            <a href="https://github.com/yogasw/test-permission-camera-and-mic" class="footer-link github" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                GitHub
+            </a>
         </div>
     </div>
 
@@ -1018,6 +1232,124 @@
         }
 
         log('Application started');
+
+        // BROWSER INFO DETECTION
+        function detectBrowserInfo() {
+            log('Detecting browser information...');
+            
+            const ua = navigator.userAgent;
+            let browserName = 'Unknown';
+            let browserVersion = 'Unknown';
+            let os = 'Unknown';
+            let deviceType = 'Desktop';
+            
+            // Detect browser
+            if (ua.indexOf('Firefox') > -1) {
+                browserName = 'Mozilla Firefox';
+                browserVersion = ua.match(/Firefox\/([0-9.]+)/)?.[1] || 'Unknown';
+            } else if (ua.indexOf('Edg') > -1) {
+                browserName = 'Microsoft Edge';
+                browserVersion = ua.match(/Edg\/([0-9.]+)/)?.[1] || 'Unknown';
+            } else if (ua.indexOf('Chrome') > -1) {
+                browserName = 'Google Chrome';
+                browserVersion = ua.match(/Chrome\/([0-9.]+)/)?.[1] || 'Unknown';
+            } else if (ua.indexOf('Safari') > -1) {
+                browserName = 'Apple Safari';
+                browserVersion = ua.match(/Version\/([0-9.]+)/)?.[1] || 'Unknown';
+            } else if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) {
+                browserName = 'Opera';
+                browserVersion = ua.match(/(?:Opera|OPR)\/([0-9.]+)/)?.[1] || 'Unknown';
+            }
+            
+            // Detect OS
+            if (ua.indexOf('Win') > -1) os = 'Windows';
+            else if (ua.indexOf('Mac') > -1) os = 'macOS';
+            else if (ua.indexOf('Linux') > -1) os = 'Linux';
+            else if (ua.indexOf('Android') > -1) os = 'Android';
+            else if (ua.indexOf('iOS') > -1 || ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) os = 'iOS';
+            
+            // Detect device type
+            if (/Mobi|Android|iPhone|iPad|iPod/i.test(ua)) {
+                if (/iPad/i.test(ua)) {
+                    deviceType = 'Tablet';
+                } else {
+                    deviceType = 'Mobile';
+                }
+            } else {
+                deviceType = 'Desktop';
+            }
+            
+            // Screen resolution
+            const screenRes = `${window.screen.width} × ${window.screen.height}`;
+            const viewport = `${window.innerWidth} × ${window.innerHeight}`;
+            
+            // WebRTC support
+            const hasGetUserMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+            const hasWebRTC = !!(window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection);
+            
+            const info = {
+                browserName,
+                browserVersion,
+                os,
+                deviceType,
+                screenRes,
+                viewport,
+                hasGetUserMedia,
+                hasWebRTC,
+                userAgent: ua
+            };
+            
+            log('Browser info detected:', info);
+            return info;
+        }
+
+        function populateBrowserInfo() {
+            const info = detectBrowserInfo();
+            
+            document.getElementById('browserName').textContent = info.browserName;
+            document.getElementById('browserVersion').textContent = info.browserVersion;
+            document.getElementById('browserOS').textContent = info.os;
+            document.getElementById('deviceType').textContent = info.deviceType;
+            document.getElementById('screenResolution').innerHTML = `
+                Screen: ${info.screenRes}<br>
+                Viewport: ${info.viewport}
+            `;
+            
+            // WebRTC support badges
+            const webrtcEl = document.getElementById('webrtcSupport');
+            webrtcEl.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <span class="support-badge ${info.hasGetUserMedia ? 'yes' : 'no'}">
+                        ${info.hasGetUserMedia ? '✓' : '✗'} getUserMedia
+                    </span>
+                    <span class="support-badge ${info.hasWebRTC ? 'yes' : 'no'}">
+                        ${info.hasWebRTC ? '✓' : '✗'} WebRTC
+                    </span>
+                </div>
+            `;
+            
+            document.getElementById('userAgent').textContent = info.userAgent;
+            
+            log('Browser info populated in UI');
+        }
+
+        // Setup footer tools
+        function setupFooterTools() {
+            const currentUrl = window.location.href;
+            document.getElementById('openInBrowser').href = currentUrl;
+            log('Footer tools setup complete');
+        }
+
+        // Toggle browser info
+        document.getElementById('browserInfoHeader').addEventListener('click', () => {
+            const browserInfo = document.getElementById('browserInfo');
+            browserInfo.classList.toggle('collapsed');
+            log('Browser info toggled');
+        });
+
+        // Initialize browser info and footer
+        populateBrowserInfo();
+        setupFooterTools();
 
         let cameraStream = null;
         let micStream = null;

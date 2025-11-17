@@ -16,17 +16,14 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .container {
+            max-width: 1000px;
+            margin: 0 auto;
             background: white;
             border-radius: 20px;
             padding: 30px;
-            max-width: 800px;
-            width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
@@ -36,186 +33,522 @@
             margin-bottom: 30px;
         }
 
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            flex: 1;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 150px;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-danger {
-            background: #f56565;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(245, 101, 101, 0.4);
-        }
-
-        .btn-success {
-            background: #48bb78;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .video-container {
-            position: relative;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            aspect-ratio: 16/9;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .status {
             padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
             font-weight: 500;
         }
 
         .status.info {
             background: #bee3f8;
             color: #2c5282;
-            border-left: 4px solid #3182ce;
         }
 
         .status.success {
             background: #c6f6d5;
             color: #22543d;
-            border-left: 4px solid #38a169;
         }
 
         .status.error {
             background: #fed7d7;
             color: #742a2a;
-            border-left: 4px solid #e53e3e;
         }
 
-        .status.warning {
-            background: #feebc8;
-            color: #7c2d12;
-            border-left: 4px solid #dd6b20;
+        .status.recording {
+            background: #fed7d7;
+            color: #742a2a;
         }
 
-        .error-details {
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(0,0,0,0.05);
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 14px;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .audio-visualizer {
+        .device-section {
             background: #f7fafc;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
 
-        .volume-bar {
-            height: 30px;
-            background: #e2e8f0;
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .volume-level {
-            height: 100%;
-            background: linear-gradient(90deg, #48bb78, #38a169);
-            width: 0%;
-            transition: width 0.1s ease;
-            border-radius: 15px;
-        }
-
-        .device-info {
-            background: #f7fafc;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        .device-info h3 {
-            margin-bottom: 10px;
+        .section-header h3 {
+            margin: 0;
             color: #2d3748;
             font-size: 18px;
         }
 
-        .device-item {
-            padding: 8px;
-            margin: 5px 0;
-            background: white;
-            border-radius: 4px;
-            font-size: 14px;
+        .permission-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
+        .permission-badge.inactive {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .permission-badge.active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .permission-badge.active .badge-dot {
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        .device-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .device-select {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .device-select:enabled:hover {
+            border-color: #cbd5e0;
+        }
+
+        .device-select:enabled:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .device-select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f7fafc;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: 160px;
+        }
+
+        .btn-mic {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-mic:hover {
+            background: #38a169;
+            transform: translateY(-1px);
+        }
+
+        .btn-mic.recording {
+            background: #e53e3e;
+            animation: recording-pulse 1s ease-in-out infinite;
+        }
+
+        .btn-camera {
+            background: #4299e1;
+            color: white;
+        }
+
+        .btn-camera:hover {
+            background: #3182ce;
+            transform: translateY(-1px);
+        }
+
+        .btn-camera.active {
+            background: #e53e3e;
+        }
+
+        .btn-camera.active:hover {
+            background: #c53030;
+        }
+
+        @keyframes recording-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Audio Visualizer */
+        .visualizer-container {
+            background: #1a202c;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .visualizer-container.active {
+            display: block;
+        }
+
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .recording-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .timer-display {
+            background: #e53e3e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .hear-yourself-btn {
+            background: #4a5568;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .hear-yourself-btn:hover {
+            background: #2d3748;
+        }
+
+        canvas {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .audio-controls {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .audio-controls.active {
+            display: block;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Video */
+        .video-wrapper {
+            position: relative;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 15px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-wrapper.empty::before {
+            content: '📹 Camera Off';
+            color: #666;
+            font-size: 24px;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Device List */
+        .device-list {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #4a5568;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .device-item {
+            padding: 6px 0;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .device-item:last-child {
+            border-bottom: none;
+        }
+
+        .device-type-label {
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal h2 {
+            color: #e53e3e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-content {
+            color: #2d3748;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-steps {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .modal-steps ol {
+            margin-left: 20px;
+        }
+
+        .modal-steps li {
+            margin: 8px 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-primary {
+            background: #4299e1;
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: #3182ce;
+        }
+
+        .modal-btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        /* Console Viewer */
+        .console-viewer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a202c;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            z-index: 999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            transition: height 0.3s ease;
+        }
+
+        .console-viewer.minimized {
+            height: 40px;
+        }
+
+        .console-viewer.maximized {
+            height: 300px;
+        }
+
+        .console-header {
+            background: #2d3748;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .console-header h4 {
+            margin: 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .console-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .console-btn {
+            background: transparent;
+            border: 1px solid #4a5568;
+            color: #e2e8f0;
+            padding: 4px 12px;
             border-radius: 4px;
             font-size: 12px;
-            font-weight: 600;
-            margin-left: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .badge.camera {
-            background: #bee3f8;
-            color: #2c5282;
+        .console-btn:hover {
+            background: #4a5568;
         }
 
-        .badge.mic {
-            background: #fbb6ce;
-            color: #702459;
-        }
-
-        .hidden {
+        .console-body {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding: 10px;
             display: none;
+        }
+
+        .console-viewer.maximized .console-body {
+            display: block;
+        }
+
+        .console-message {
+            padding: 6px 10px;
+            margin: 2px 0;
+            border-left: 3px solid transparent;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .console-message.log {
+            border-left-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .console-message.info {
+            border-left-color: #4299e1;
+            background: rgba(66, 153, 225, 0.1);
+        }
+
+        .console-message.warn {
+            border-left-color: #ed8936;
+            background: rgba(237, 137, 54, 0.1);
+            color: #fbd38d;
+        }
+
+        .console-message.error {
+            border-left-color: #f56565;
+            background: rgba(245, 101, 101, 0.1);
+            color: #fc8181;
+        }
+
+        .console-timestamp {
+            color: #718096;
+            font-size: 11px;
+            margin-right: 8px;
+        }
+
+        .console-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .console-body::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+
+        .console-body::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+
+        .console-body::-webkit-scrollbar-thumb:hover {
+            background: #718096;
         }
     </style>
 </head>
@@ -223,265 +556,715 @@
     <div class="container">
         <h1>🎥 Test Camera & Microphone 🎤</h1>
 
-        <div id="statusMessage" class="status info">
-            Klik tombol di bawah untuk memulai test
+        <div id="status" class="status info">
+            Klik tombol di bawah untuk test microphone atau camera
         </div>
 
-        <div class="button-group">
-            <button id="startBtn" class="btn-primary" onclick="startMedia()">
-                🚀 Start Camera & Mic
-            </button>
-            <button id="stopBtn" class="btn-danger" onclick="stopMedia()" disabled>
-                🛑 Stop
-            </button>
-            <button id="testAudioBtn" class="btn-success" onclick="testAudio()" disabled>
-                🔊 Test Audio
-            </button>
-        </div>
+        <!-- MICROPHONE SECTION (FIRST) -->
+        <div class="device-section">
+            <div class="section-header">
+                <h3>🎤 Microphone Test</h3>
+                <div id="micStatus" class="permission-badge inactive">
+                    <span class="badge-dot"></span>
+                    No Permission
+                </div>
+            </div>
+            
+            <!-- Request Permission Button (shown initially) -->
+            <div id="micRequestPermission" class="device-controls">
+                <button id="micRequestBtn" class="btn-mic">
+                    🔓 Request Microphone Permission
+                </button>
+            </div>
 
-        <div class="video-container">
-            <video id="videoElement" autoplay muted playsinline></video>
-        </div>
-
-        <div class="audio-visualizer hidden" id="audioVisualizer">
-            <h3>📊 Audio Level</h3>
-            <div class="volume-bar">
-                <div id="volumeLevel" class="volume-level"></div>
+            <!-- Device Controls (shown after permission) -->
+            <div id="micDeviceControls" class="device-controls" style="display: none;">
+                <select id="micSelect" class="device-select">
+                    <option value="">Select Microphone</option>
+                </select>
+                <button id="micBtn" class="btn-mic">
+                    🎙️ Start Recording (5s)
+                </button>
+            </div>
+            
+            <!-- Device List (shown after permission) -->
+            <div id="micDeviceList" class="device-list" style="display: none;">
+                <div class="device-type-label">Available Microphones:</div>
+                <div id="micDevices"></div>
             </div>
         </div>
 
-        <div class="device-info hidden" id="deviceInfo">
-            <h3>📱 Device Information</h3>
-            <div id="deviceList"></div>
+        <!-- Audio Visualizer -->
+        <div id="visualizerContainer" class="visualizer-container">
+            <div class="visualizer-header">
+                <div class="recording-info">
+                    <div class="timer-display" id="timerDisplay">00:00:00</div>
+                </div>
+                <button class="hear-yourself-btn" id="hearYourselfBtn">
+                    Hear yourself
+                </button>
+            </div>
+            <canvas id="visualizer"></canvas>
+        </div>
+
+        <!-- Audio Playback -->
+        <div id="audioControls" class="audio-controls">
+            <audio id="audioPlayback" controls></audio>
+        </div>
+
+        <!-- CAMERA SECTION (SECOND) -->
+        <div class="device-section">
+            <div class="section-header">
+                <h3>📹 Camera Test</h3>
+                <div id="cameraStatus" class="permission-badge inactive">
+                    <span class="badge-dot"></span>
+                    No Permission
+                </div>
+            </div>
+            
+            <!-- Request Permission Button (shown initially) -->
+            <div id="cameraRequestPermission" class="device-controls">
+                <button id="cameraRequestBtn" class="btn-camera">
+                    🔓 Request Camera Permission
+                </button>
+            </div>
+
+            <!-- Device Controls (shown after permission) -->
+            <div id="cameraDeviceControls" class="device-controls" style="display: none;">
+                <select id="cameraSelect" class="device-select">
+                    <option value="">Select Camera</option>
+                </select>
+                <button id="cameraBtn" class="btn-camera">
+                    📹 Start Camera
+                </button>
+            </div>
+
+            <!-- Device List (shown after permission) -->
+            <div id="cameraDeviceList" class="device-list" style="display: none;">
+                <div class="device-type-label">Available Cameras:</div>
+                <div id="cameraDevices"></div>
+            </div>
+        </div>
+
+        <div id="videoWrapper" class="video-wrapper empty">
+            <video id="video" autoplay muted playsinline style="display:none"></video>
         </div>
     </div>
 
-    <script>
-        let mediaStream = null;
+    <!-- Console Viewer -->
+    <div id="consoleViewer" class="console-viewer minimized">
+        <div class="console-header" id="consoleHeader">
+            <h4>
+                <span>📋</span>
+                Console Messages
+            </h4>
+            <div class="console-controls">
+                <button class="console-btn" id="consoleClear">Clear</button>
+                <button class="console-btn" id="consoleToggle">▼</button>
+            </div>
+        </div>
+        <div class="console-body" id="consoleBody"></div>
+    </div>
+
+    <!-- Permission Modal -->
+    <div id="permissionModal" class="modal-overlay">
+        <div class="modal">
+            <h2>
+                <span>🔒</span>
+                Permission Required
+            </h2>
+            <div class="modal-content">
+                <p>Aplikasi ini memerlukan akses ke <strong id="permissionType"></strong> kamu.</p>
+                
+                <div class="modal-steps">
+                    <strong>Cara mengizinkan akses:</strong>
+                    <ol>
+                        <li>Klik ikon <strong>🔒 gembok</strong> atau <strong>ⓘ info</strong> di address bar browser</li>
+                        <li>Cari pengaturan <strong id="permissionName"></strong></li>
+                        <li>Ubah permission menjadi <strong>"Allow"</strong></li>
+                        <li>Klik tombol <strong>"Refresh & Retry"</strong> di bawah</li>
+                    </ol>
+                </div>
+
+                <p style="font-size: 14px; color: #718096; margin-top: 15px;">
+                    💡 Tip: Pastikan device kamu tidak sedang digunakan oleh aplikasi lain.
+                </p>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" id="modalClose">
+                    Batal
+                </button>
+                <button class="modal-btn modal-btn-primary" id="modalRetry">
+                    🔄 Refresh & Retry
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // CONSOLE VIEWER SETUP
+        const consoleViewer = {
+            element: null,
+            body: null,
+            isMaximized: false,
+            
+            init() {
+                this.element = document.getElementById('consoleViewer');
+                this.body = document.getElementById('consoleBody');
+                
+                // Toggle minimize/maximize on header click
+                document.getElementById('consoleHeader').addEventListener('click', () => {
+                    this.toggle();
+                });
+                
+                document.getElementById('consoleToggle').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggle();
+                });
+                
+                // Clear console
+                document.getElementById('consoleClear').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.clear();
+                });
+                
+                // Override console methods
+                this.overrideConsole();
+            },
+            
+            toggle() {
+                this.isMaximized = !this.isMaximized;
+                if (this.isMaximized) {
+                    this.element.classList.remove('minimized');
+                    this.element.classList.add('maximized');
+                    document.getElementById('consoleToggle').textContent = '▲';
+                } else {
+                    this.element.classList.remove('maximized');
+                    this.element.classList.add('minimized');
+                    document.getElementById('consoleToggle').textContent = '▼';
+                }
+            },
+            
+            clear() {
+                this.body.innerHTML = '';
+            },
+            
+            addMessage(type, ...args) {
+                const timestamp = new Date().toISOString();
+                const message = document.createElement('div');
+                message.className = `console-message ${type}`;
+                
+                // Format arguments
+                const formattedArgs = args.map(arg => {
+                    if (typeof arg === 'object') {
+                        try {
+                            return JSON.stringify(arg, null, 2);
+                        } catch (e) {
+                            return String(arg);
+                        }
+                    }
+                    return String(arg);
+                }).join(' ');
+                
+                message.innerHTML = `<span class="console-timestamp">[${timestamp}]</span>${formattedArgs}`;
+                this.body.appendChild(message);
+                
+                // Auto scroll to bottom
+                this.body.scrollTop = this.body.scrollHeight;
+            },
+            
+            overrideConsole() {
+                const originalLog = console.log;
+                const originalError = console.error;
+                const originalWarn = console.warn;
+                const originalInfo = console.info;
+                
+                console.log = (...args) => {
+                    originalLog.apply(console, args);
+                    this.addMessage('log', ...args);
+                };
+                
+                console.error = (...args) => {
+                    originalError.apply(console, args);
+                    this.addMessage('error', ...args);
+                };
+                
+                console.warn = (...args) => {
+                    originalWarn.apply(console, args);
+                    this.addMessage('warn', ...args);
+                };
+                
+                console.info = (...args) => {
+                    originalInfo.apply(console, args);
+                    this.addMessage('info', ...args);
+                };
+                
+                // Catch unhandled errors
+                window.addEventListener('error', (event) => {
+                    this.addMessage('error', `Uncaught Error: ${event.message} at ${event.filename}:${event.lineno}:${event.colno}`);
+                });
+                
+                // Catch unhandled promise rejections
+                window.addEventListener('unhandledrejection', (event) => {
+                    this.addMessage('error', `Unhandled Promise Rejection: ${event.reason}`);
+                });
+            }
+        };
+        
+        // Initialize console viewer
+        consoleViewer.init();
+        
+        // LOGGING UTILITY
+        function log(message, data = null) {
+            const timestamp = new Date().toISOString();
+            if (data) {
+                console.log(`[${timestamp}] ${message}`, data);
+            } else {
+                console.log(`[${timestamp}] ${message}`);
+            }
+        }
+
+        log('Application started');
+
+        let cameraStream = null;
+        let micStream = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let recordingInterval = null;
         let audioContext = null;
         let analyser = null;
-        let microphone = null;
         let animationId = null;
 
-        // Fungsi untuk menampilkan status
-        function showStatus(message, type = 'info', errorDetails = null) {
-            const statusDiv = document.getElementById('statusMessage');
-            statusDiv.className = `status ${type}`;
-            statusDiv.innerHTML = message;
-            
-            if (errorDetails) {
-                statusDiv.innerHTML += `<div class="error-details">${errorDetails}</div>`;
-            }
+        const state = {
+            cameraActive: false,
+            cameraPermission: false,
+            micActive: false,
+            micPermission: false,
+            isRecording: false,
+            recordingStartTime: null
+        };
+
+        const elements = {
+            video: document.getElementById('video'),
+            videoWrapper: document.getElementById('videoWrapper'),
+            status: document.getElementById('status'),
+            // Mic elements
+            micRequestBtn: document.getElementById('micRequestBtn'),
+            micRequestPermission: document.getElementById('micRequestPermission'),
+            micDeviceControls: document.getElementById('micDeviceControls'),
+            micBtn: document.getElementById('micBtn'),
+            micSelect: document.getElementById('micSelect'),
+            micStatus: document.getElementById('micStatus'),
+            micDeviceList: document.getElementById('micDeviceList'),
+            micDevices: document.getElementById('micDevices'),
+            // Camera elements
+            cameraRequestBtn: document.getElementById('cameraRequestBtn'),
+            cameraRequestPermission: document.getElementById('cameraRequestPermission'),
+            cameraDeviceControls: document.getElementById('cameraDeviceControls'),
+            cameraBtn: document.getElementById('cameraBtn'),
+            cameraSelect: document.getElementById('cameraSelect'),
+            cameraStatus: document.getElementById('cameraStatus'),
+            cameraDeviceList: document.getElementById('cameraDeviceList'),
+            cameraDevices: document.getElementById('cameraDevices'),
+            // Visualizer elements
+            visualizerContainer: document.getElementById('visualizerContainer'),
+            visualizer: document.getElementById('visualizer'),
+            timerDisplay: document.getElementById('timerDisplay'),
+            hearYourselfBtn: document.getElementById('hearYourselfBtn'),
+            audioControls: document.getElementById('audioControls'),
+            audioPlayback: document.getElementById('audioPlayback'),
+            // Modal elements
+            modal: document.getElementById('permissionModal'),
+            modalClose: document.getElementById('modalClose'),
+            modalRetry: document.getElementById('modalRetry'),
+            permissionType: document.getElementById('permissionType'),
+            permissionName: document.getElementById('permissionName')
+        };
+
+        function showStatus(message, type) {
+            elements.status.className = `status ${type}`;
+            elements.status.textContent = message;
+            log(`Status: ${message} (${type})`);
         }
 
-        // Fungsi untuk mendapatkan error message yang user-friendly
-        function getErrorMessage(error) {
-            let message = '';
-            let details = '';
-
-            switch(error.name) {
-                case 'NotAllowedError':
-                case 'PermissionDeniedError':
-                    message = '❌ Permission Ditolak!';
-                    details = 'Kamu menolak akses ke camera atau microphone. Silakan:
-1. Klik ikon gembok/info di address bar
-2. Izinkan akses camera dan microphone
-3. Refresh halaman dan coba lagi';
-                    break;
-                
-                case 'NotFoundError':
-                case 'DevicesNotFoundError':
-                    message = '❌ Device Tidak Ditemukan!';
-                    details = 'Camera atau microphone tidak terdeteksi. Pastikan:
-1. Device terpasang dengan benar
-2. Driver sudah terinstall
-3. Tidak digunakan aplikasi lain';
-                    break;
-                
-                case 'NotReadableError':
-                case 'TrackStartError':
-                    message = '❌ Device Sedang Digunakan!';
-                    details = 'Camera atau microphone sedang digunakan aplikasi lain. Tutup aplikasi yang menggunakan camera/mic dan coba lagi.';
-                    break;
-                
-                case 'OverconstrainedError':
-                    message = '❌ Constraint Tidak Didukung!';
-                    details = 'Pengaturan yang diminta tidak didukung oleh device kamu.';
-                    break;
-                
-                case 'TypeError':
-                    message = '❌ Browser Tidak Mendukung!';
-                    details = 'Browser kamu tidak mendukung getUserMedia. Gunakan browser modern seperti Chrome, Firefox, atau Edge.';
-                    break;
-                
-                case 'AbortError':
-                    message = '❌ Request Dibatalkan!';
-                    details = 'Permintaan akses dibatalkan. Silakan coba lagi.';
-                    break;
-                
-                default:
-                    message = '❌ Error Tidak Dikenal!';
-                    details = `Error: ${error.name}
-Message: ${error.message}`;
+        function updateCameraStatus(active, hasPermission = true) {
+            if (!hasPermission) {
+                elements.cameraStatus.className = 'permission-badge inactive';
+                elements.cameraStatus.innerHTML = '<span class="badge-dot"></span>No Permission';
+            } else if (active) {
+                elements.cameraStatus.className = 'permission-badge active';
+                elements.cameraStatus.innerHTML = '<span class="badge-dot"></span>Active';
+            } else {
+                elements.cameraStatus.className = 'permission-badge inactive';
+                elements.cameraStatus.innerHTML = '<span class="badge-dot"></span>Inactive';
             }
-
-            return { message, details };
+            log(`Camera status: ${!hasPermission ? 'No Permission' : (active ? 'Active' : 'Inactive')}`);
         }
 
-        // Fungsi untuk start camera dan microphone
-        async function startMedia() {
+        function updateMicStatus(active, hasPermission = true) {
+            if (!hasPermission) {
+                elements.micStatus.className = 'permission-badge inactive';
+                elements.micStatus.innerHTML = '<span class="badge-dot"></span>No Permission';
+            } else if (active) {
+                elements.micStatus.className = 'permission-badge active';
+                elements.micStatus.innerHTML = '<span class="badge-dot"></span>Active';
+            } else {
+                elements.micStatus.className = 'permission-badge inactive';
+                elements.micStatus.innerHTML = '<span class="badge-dot"></span>Inactive';
+            }
+            log(`Mic status: ${!hasPermission ? 'No Permission' : (active ? 'Active' : 'Inactive')}`);
+        }
+
+        function showPermissionModal(deviceType) {
+            const isCameraRequest = deviceType === 'camera';
+            elements.permissionType.textContent = isCameraRequest ? 'Camera' : 'Microphone';
+            elements.permissionName.textContent = isCameraRequest ? 'Camera' : 'Microphone';
+            elements.modal.classList.add('active');
+            log(`Permission modal shown for: ${deviceType}`);
+        }
+
+        function hidePermissionModal() {
+            elements.modal.classList.remove('active');
+            log('Permission modal hidden');
+        }
+
+        // GET ALL DEVICES
+        async function getAllDevices() {
             try {
-                showStatus('⏳ Meminta akses camera dan microphone...', 'info');
+                log('Getting all devices...');
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                
+                log(`Total devices found: ${devices.length}`, devices);
 
-                // Check browser support
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    throw new TypeError('getUserMedia tidak didukung');
+                const videoDevices = devices.filter(d => d.kind === 'videoinput');
+                const audioDevices = devices.filter(d => d.kind === 'audioinput');
+
+                log(`Video devices: ${videoDevices.length}`, videoDevices);
+                log(`Audio devices: ${audioDevices.length}`, audioDevices);
+
+                return { videoDevices, audioDevices };
+
+            } catch (error) {
+                log('Error getting devices', error);
+                console.error('Error enumerating devices:', error);
+                return { videoDevices: [], audioDevices: [] };
+            }
+        }
+
+        // CHECK PERMISSIONS ON LOAD
+        async function checkExistingPermissions() {
+            log('Checking existing permissions...');
+            
+            try {
+                // Check microphone permission
+                if (navigator.permissions) {
+                    const micPermission = await navigator.permissions.query({ name: 'microphone' });
+                    log(`Microphone permission state: ${micPermission.state}`);
+                    
+                    if (micPermission.state === 'granted') {
+                        log('Microphone permission already granted, loading devices...');
+                        await loadMicrophoneDevices();
+                    }
+                    
+                    // Check camera permission
+                    const cameraPermission = await navigator.permissions.query({ name: 'camera' });
+                    log(`Camera permission state: ${cameraPermission.state}`);
+                    
+                    if (cameraPermission.state === 'granted') {
+                        log('Camera permission already granted, loading devices...');
+                        await loadCameraDevices();
+                    }
+                } else {
+                    // Fallback: try to get devices (labels will be empty if no permission)
+                    log('Permissions API not available, checking via enumerateDevices...');
+                    const { videoDevices, audioDevices } = await getAllDevices();
+                    
+                    // If device labels are available, permission was granted
+                    if (audioDevices.length > 0 && audioDevices[0].label) {
+                        log('Microphone permission detected via device labels');
+                        await loadMicrophoneDevices();
+                    }
+                    
+                    if (videoDevices.length > 0 && videoDevices[0].label) {
+                        log('Camera permission detected via device labels');
+                        await loadCameraDevices();
+                    }
+                }
+            } catch (error) {
+                log('Error checking permissions', error);
+                console.error('Permission check error:', error);
+            }
+        }
+
+        // LOAD MICROPHONE DEVICES
+        async function loadMicrophoneDevices() {
+            try {
+                const { audioDevices } = await getAllDevices();
+
+                if (audioDevices.length === 0) {
+                    log('No microphone devices found');
+                    return;
                 }
 
-                // Request permission untuk camera dan microphone
+                // Populate Mic Select
+                elements.micSelect.innerHTML = '<option value="">Select Microphone</option>';
+                audioDevices.forEach((device, index) => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.textContent = device.label || `Microphone ${index + 1}`;
+                    elements.micSelect.appendChild(option);
+                    log(`Added mic option: ${option.textContent} (${device.deviceId})`);
+                });
+
+                elements.micSelect.selectedIndex = 1;
+                elements.micDeviceList.style.display = 'block';
+                elements.micDevices.innerHTML = audioDevices.map((d, i) => 
+                    `<div class="device-item">${i + 1}. ${d.label || `Microphone ${i + 1}`}</div>`
+                ).join('');
+
+                // Show device controls, hide request button
+                elements.micRequestPermission.style.display = 'none';
+                elements.micDeviceControls.style.display = 'flex';
+                state.micPermission = true;
+                updateMicStatus(false, true);
+
+                log('Microphone devices loaded successfully');
+            } catch (error) {
+                log('Error loading microphone devices', error);
+                console.error('Error loading microphone devices:', error);
+            }
+        }
+
+        // LOAD CAMERA DEVICES
+        async function loadCameraDevices() {
+            try {
+                const { videoDevices } = await getAllDevices();
+
+                if (videoDevices.length === 0) {
+                    log('No camera devices found');
+                    return;
+                }
+
+                // Populate Camera Select
+                elements.cameraSelect.innerHTML = '<option value="">Select Camera</option>';
+                videoDevices.forEach((device, index) => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.textContent = device.label || `Camera ${index + 1}`;
+                    elements.cameraSelect.appendChild(option);
+                    log(`Added camera option: ${option.textContent} (${device.deviceId})`);
+                });
+
+                elements.cameraSelect.selectedIndex = 1;
+                elements.cameraDeviceList.style.display = 'block';
+                elements.cameraDevices.innerHTML = videoDevices.map((d, i) => 
+                    `<div class="device-item">${i + 1}. ${d.label || `Camera ${i + 1}`}</div>`
+                ).join('');
+
+                // Show device controls, hide request button
+                elements.cameraRequestPermission.style.display = 'none';
+                elements.cameraDeviceControls.style.display = 'flex';
+                state.cameraPermission = true;
+                updateCameraStatus(false, true);
+
+                log('Camera devices loaded successfully');
+            } catch (error) {
+                log('Error loading camera devices', error);
+                console.error('Error loading camera devices:', error);
+            }
+        }
+
+        // REQUEST MICROPHONE PERMISSION
+        async function requestMicPermission() {
+            try {
+                log('Requesting microphone permission...');
+                showStatus('⏳ Meminta akses microphone...', 'info');
+
+                if (!navigator.mediaDevices?.getUserMedia) {
+                    throw new Error('Browser tidak mendukung getUserMedia');
+                }
+
+                // Request temporary access to get permission
+                const tempStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                log('Microphone permission granted');
+                
+                // Stop temporary stream immediately
+                tempStream.getTracks().forEach(track => {
+                    track.stop();
+                    log(`Stopped temp track: ${track.label}`);
+                });
+
+                // Now load devices
+                await loadMicrophoneDevices();
+
+                showStatus('✅ Permission granted! Pilih microphone dan klik "Start Recording"', 'success');
+
+            } catch (error) {
+                log('Microphone permission error', error);
+                console.error('Microphone permission error:', error);
+                handleError(error, 'microphone');
+            }
+        }
+
+        // REQUEST CAMERA PERMISSION
+        async function requestCameraPermission() {
+            try {
+                log('Requesting camera permission...');
+                showStatus('⏳ Meminta akses camera...', 'info');
+
+                if (!navigator.mediaDevices?.getUserMedia) {
+                    throw new Error('Browser tidak mendukung getUserMedia');
+                }
+
+                // Request temporary access to get permission
+                const tempStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                log('Camera permission granted');
+                
+                // Stop temporary stream immediately
+                tempStream.getTracks().forEach(track => {
+                    track.stop();
+                    log(`Stopped temp track: ${track.label}`);
+                });
+
+                // Now load devices
+                await loadCameraDevices();
+
+                showStatus('✅ Permission granted! Pilih camera dan klik "Start Camera"', 'success');
+
+            } catch (error) {
+                log('Camera permission error', error);
+                console.error('Camera permission error:', error);
+                handleError(error, 'camera');
+            }
+        }
+
+        // MICROPHONE RECORDING
+        async function toggleMic() {
+            if (state.isRecording) {
+                log('Stopping recording...');
+                stopRecording();
+            } else {
+                log('Starting recording...');
+                await startRecording();
+            }
+        }
+
+        async function startRecording() {
+            try {
+                showStatus('⏳ Meminta akses microphone...', 'info');
+
+                if (!navigator.mediaDevices?.getUserMedia) {
+                    throw new Error('Browser tidak mendukung getUserMedia');
+                }
+
+                const selectedDeviceId = elements.micSelect.value;
+                log(`Selected mic device: ${selectedDeviceId}`);
+
                 const constraints = {
-                    video: {
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 },
-                        facingMode: 'user'
-                    },
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        autoGainControl: true
+                    audio: selectedDeviceId ? 
+                        { 
+                            deviceId: { exact: selectedDeviceId },
+                            echoCancellation: true,
+                            noiseSuppression: true
+                        } : 
+                        {
+                            echoCancellation: true,
+                            noiseSuppression: true
+                        }
+                };
+
+                log('Requesting microphone access with constraints:', constraints);
+                micStream = await navigator.mediaDevices.getUserMedia(constraints);
+                log('Microphone access granted');
+
+                // Setup visualizer
+                setupVisualizer();
+
+                // Start recording
+                audioChunks = [];
+                mediaRecorder = new MediaRecorder(micStream);
+                log('MediaRecorder created');
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                        log(`Audio chunk received: ${event.data.size} bytes`);
                     }
                 };
 
-                mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+                mediaRecorder.onstop = () => {
+                    log('MediaRecorder stopped, processing audio...');
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    log(`Audio blob created: ${audioBlob.size} bytes`);
+                    
+                    elements.audioPlayback.src = audioUrl;
+                    elements.audioControls.classList.add('active');
+                    
+                    showStatus('✅ Recording selesai! Klik play untuk dengar playback.', 'success');
+                    
+                    // Auto play
+                    elements.audioPlayback.play();
+                    log('Auto playing recorded audio');
+                    
+                    // Clean up
+                    if (micStream) {
+                        micStream.getTracks().forEach(track => {
+                            track.stop();
+                            log(`Stopped mic track: ${track.label}`);
+                        });
+                        micStream = null;
+                    }
+                    
+                    state.isRecording = false;
+                    state.micActive = false;
+                    elements.micBtn.textContent = '🎙️ Start Recording (5s)';
+                    elements.micBtn.classList.remove('recording');
+                    updateMicStatus(false);
+                    elements.visualizerContainer.classList.remove('active');
+                };
 
-                // Display video
-                const video = document.getElementById('videoElement');
-                video.srcObject = mediaStream;
+                mediaRecorder.start();
+                log('Recording started');
+                state.isRecording = true;
+                state.micActive = true;
+                state.recordingStartTime = Date.now();
+                updateMicStatus(true);
 
-                // Setup audio context untuk visualizer
-                setupAudioVisualizer();
+                elements.visualizerContainer.classList.add('active');
+                elements.micBtn.textContent = '⏹️ Stop Recording';
+                elements.micBtn.classList.add('recording');
+                
+                showStatus('🔴 Recording... Silakan ngomong!', 'recording');
 
-                // Show device info
-                await showDeviceInfo();
-
-                // Update UI
-                document.getElementById('startBtn').disabled = true;
-                document.getElementById('stopBtn').disabled = false;
-                document.getElementById('testAudioBtn').disabled = false;
-                document.getElementById('audioVisualizer').classList.remove('hidden');
-                document.getElementById('deviceInfo').classList.remove('hidden');
-
-                showStatus('✅ Camera dan Microphone Berhasil Diakses!', 'success');
+                // Timer update
+                recordingInterval = setInterval(() => {
+                    const elapsed = Date.now() - state.recordingStartTime;
+                    const seconds = Math.floor(elapsed / 1000);
+                    const minutes = Math.floor(seconds / 60);
+                    const hours = Math.floor(minutes / 60);
+                    
+                    const display = `${String(hours).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+                    elements.timerDisplay.textContent = display;
+                    
+                    // Auto stop after 5 seconds
+                    if (seconds >= 5) {
+                        log('Auto-stopping after 5 seconds');
+                        stopRecording();
+                    }
+                }, 100);
 
             } catch (error) {
-                console.error('Error accessing media devices:', error);
-                const { message, details } = getErrorMessage(error);
-                showStatus(message, 'error', details);
+                log('Microphone error', error);
+                console.error('Microphone error:', error);
+                handleError(error, 'microphone');
             }
         }
 
-        // Setup audio visualizer
-        function setupAudioVisualizer() {
-            try {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                microphone = audioContext.createMediaStreamSource(mediaStream);
-                
-                analyser.fftSize = 256;
-                microphone.connect(analyser);
-
-                // Start animation
-                visualizeAudio();
-            } catch (error) {
-                console.error('Error setting up audio visualizer:', error);
-            }
-        }
-
-        // Visualize audio level
-        function visualizeAudio() {
-            const dataArray = new Uint8Array(analyser.frequencyBinCount);
-            
-            function draw() {
-                animationId = requestAnimationFrame(draw);
-                
-                analyser.getByteFrequencyData(dataArray);
-                
-                // Calculate average volume
-                const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
-                const volumePercent = (average / 255) * 100;
-                
-                // Update volume bar
-                document.getElementById('volumeLevel').style.width = volumePercent + '%';
-            }
-            
-            draw();
-        }
-
-        // Test audio dengan beep sound
-        function testAudio() {
-            if (!audioContext) return;
-
-            showStatus('🔊 Testing audio... Kamu harus dengar bunyi beep!', 'info');
-
-            // Create oscillator untuk beep sound
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.frequency.value = 800; // Hz
-            gainNode.gain.value = 0.3;
-
-            oscillator.start();
-            
-            // Stop after 0.2 seconds
-            setTimeout(() => {
-                oscillator.stop();
-                showStatus('✅ Audio test selesai! Kalau kamu dengar beep, audio berfungsi dengan baik!', 'success');
-            }, 200);
-        }
-
-        // Show device information
-        async function showDeviceInfo() {
-            try {
-                const devices = await navigator.mediaDevices.enumerateDevices();
-                const deviceList = document.getElementById('deviceList');
-                deviceList.innerHTML = '';
-
-                const videoDevices = devices.filter(device => device.kind === 'videoinput');
-                const audioDevices = devices.filter(device => device.kind === 'audioinput');
-
-                deviceList.innerHTML += '<strong>📹 Camera:</strong>';
-                videoDevices.forEach((device, index) => {
-                    deviceList.innerHTML += `
-                        <div class="device-item">
-                            ${index + 1}. ${device.label || `Camera ${index + 1}`}
-                            <span class="badge camera">VIDEO</span>
-                        </div>
-                    `;
-                });
-
-                deviceList.innerHTML += '<strong style="display:block; margin-top:10px">🎤 Microphone:</strong>';
-                audioDevices.forEach((device, index) => {
-                    deviceList.innerHTML += `
-                        <div class="device-item">
-                            ${index + 1}. ${device.label || `Microphone ${index + 1}`}
-                            <span class="badge mic">AUDIO</span>
-                        </div>
-                    `;
-                });
-
-            } catch (error) {
-                console.error('Error enumerating devices:', error);
-            }
-        }
-
-        // Stop media
-        function stopMedia() {
-            if (mediaStream) {
-                mediaStream.getTracks().forEach(track => track.stop());
-                mediaStream = null;
+        function stopRecording() {
+            if (recordingInterval) {
+                clearInterval(recordingInterval);
+                recordingInterval = null;
             }
 
             if (animationId) {
@@ -489,29 +1272,242 @@ Message: ${error.message}`;
                 animationId = null;
             }
 
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                log('MediaRecorder stop called');
+            }
+
             if (audioContext) {
                 audioContext.close();
                 audioContext = null;
             }
-
-            const video = document.getElementById('videoElement');
-            video.srcObject = null;
-
-            // Update UI
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('stopBtn').disabled = true;
-            document.getElementById('testAudioBtn').disabled = true;
-            document.getElementById('audioVisualizer').classList.add('hidden');
-            document.getElementById('deviceInfo').classList.add('hidden');
-            document.getElementById('volumeLevel').style.width = '0%';
-
-            showStatus('⏹️ Camera dan Microphone dihentikan', 'warning');
         }
 
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', () => {
-            stopMedia();
+        // AUDIO VISUALIZER
+        function setupVisualizer() {
+            try {
+                log('Setting up audio visualizer...');
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                const source = audioContext.createMediaStreamSource(micStream);
+                
+                analyser.fftSize = 2048;
+                source.connect(analyser);
+                log('Audio visualizer setup complete');
+
+                drawVisualizer();
+            } catch (error) {
+                log('Error setting up visualizer', error);
+                console.error('Visualizer error:', error);
+            }
+        }
+
+        function drawVisualizer() {
+            const canvas = elements.visualizer;
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                if (!state.isRecording) return;
+
+                animationId = requestAnimationFrame(draw);
+
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.fillStyle = '#1a202c';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = (dataArray[i] / 255) * canvas.height;
+
+                    // Gradient from blue to lighter blue
+                    const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
+                    gradient.addColorStop(0, '#3b82f6');
+                    gradient.addColorStop(1, '#60a5fa');
+
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+
+                    x += barWidth + 1;
+                }
+            }
+
+            draw();
+        }
+
+        // CAMERA FUNCTIONS
+        async function toggleCamera() {
+            if (state.cameraActive) {
+                log('Stopping camera...');
+                stopCamera();
+            } else {
+                log('Starting camera...');
+                await startCamera();
+            }
+        }
+
+        async function startCamera() {
+            try {
+                showStatus('⏳ Meminta akses camera...', 'info');
+
+                if (!navigator.mediaDevices?.getUserMedia) {
+                    throw new Error('Browser tidak mendukung getUserMedia');
+                }
+
+                const selectedDeviceId = elements.cameraSelect.value;
+                log(`Selected camera device: ${selectedDeviceId}`);
+
+                const constraints = {
+                    video: selectedDeviceId ? 
+                        { deviceId: { exact: selectedDeviceId } } : 
+                        { width: { ideal: 1280 }, height: { ideal: 720 } }
+                };
+
+                log('Requesting camera access with constraints:', constraints);
+                cameraStream = await navigator.mediaDevices.getUserMedia(constraints);
+                log('Camera access granted');
+
+                elements.video.srcObject = cameraStream;
+                elements.video.style.display = 'block';
+                elements.videoWrapper.classList.remove('empty');
+
+                state.cameraActive = true;
+                elements.cameraBtn.textContent = '🛑 Stop Camera';
+                elements.cameraBtn.classList.add('active');
+                updateCameraStatus(true);
+
+                showStatus('✅ Camera aktif!', 'success');
+
+            } catch (error) {
+                log('Camera error', error);
+                console.error('Camera error:', error);
+                handleError(error, 'camera');
+            }
+        }
+
+        function stopCamera() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => {
+                    track.stop();
+                    log(`Stopped camera track: ${track.label}`);
+                });
+                cameraStream = null;
+            }
+
+            elements.video.srcObject = null;
+            elements.video.style.display = 'none';
+            elements.videoWrapper.classList.add('empty');
+
+            state.cameraActive = false;
+            elements.cameraBtn.textContent = '📹 Start Camera';
+            elements.cameraBtn.classList.remove('active');
+            updateCameraStatus(false);
+
+            showStatus('⏹️ Camera dihentikan', 'info');
+        }
+
+        function handleError(error, deviceType) {
+            log(`Error for ${deviceType}:`, error);
+            let message = '';
+
+            if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+                showPermissionModal(deviceType);
+                message = `❌ Permission ${deviceType} ditolak`;
+            } else if (error.name === 'NotFoundError') {
+                message = `❌ ${deviceType} tidak ditemukan`;
+            } else if (error.name === 'NotReadableError') {
+                message = `❌ ${deviceType} sedang digunakan aplikasi lain`;
+            } else {
+                message = `❌ Error: ${error.message}`;
+            }
+
+            showStatus(message, 'error');
+        }
+
+        function cleanup() {
+            log('Cleaning up...');
+            stopCamera();
+            stopRecording();
+            if (micStream) {
+                micStream.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        // EVENT LISTENERS
+        
+        // Microphone request permission
+        elements.micRequestBtn.addEventListener('click', () => {
+            log('Mic request permission button clicked');
+            requestMicPermission();
         });
+
+        // Camera request permission
+        elements.cameraRequestBtn.addEventListener('click', () => {
+            log('Camera request permission button clicked');
+            requestCameraPermission();
+        });
+
+        // Camera controls
+        elements.cameraBtn.addEventListener('click', () => {
+            log('Camera button clicked');
+            toggleCamera();
+        });
+
+        // Microphone controls
+        elements.micBtn.addEventListener('click', () => {
+            log('Mic button clicked');
+            toggleMic();
+        });
+        
+        elements.cameraSelect.addEventListener('change', async () => {
+            log('Camera selection changed');
+            if (state.cameraActive) {
+                stopCamera();
+                await startCamera();
+            }
+        });
+        
+        elements.micSelect.addEventListener('change', () => {
+            log('Mic selection changed');
+        });
+
+        elements.hearYourselfBtn.addEventListener('click', () => {
+            log('Hear yourself button clicked');
+            // TODO: Implement live monitoring
+            alert('Live monitoring akan diimplementasikan');
+        });
+        
+        elements.modalClose.addEventListener('click', () => {
+            log('Modal close clicked');
+            hidePermissionModal();
+        });
+
+        elements.modalRetry.addEventListener('click', () => {
+            log('Modal retry clicked - reloading page');
+            hidePermissionModal();
+            location.reload();
+        });
+
+        elements.modal.addEventListener('click', (e) => {
+            if (e.target === elements.modal) {
+                log('Modal overlay clicked');
+                hidePermissionModal();
+            }
+        });
+
+        window.addEventListener('beforeunload', cleanup);
+
+        // INITIALIZE
+        log('Application initialized - checking existing permissions...');
+        checkExistingPermissions();
     </script>
 </body>
 </html>

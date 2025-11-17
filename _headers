@@ -1,0 +1,7 @@
+# _headers
+
+# Apply to all pages
+/*
+  Permissions-Policy: camera=(self), microphone=(self), geolocation=(self)
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
